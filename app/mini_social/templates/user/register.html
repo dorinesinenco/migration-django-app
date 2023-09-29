@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+
+
+
+
+
+{% block content %}
+
+<h2>CREATE YOUR ACCOUNT</h2>
+<form action="/user/register" method="POST">
+    <input 
+       name="username" 
+       type="text" 
+       placeholder="choose username..." />
+       <br>
+    <input 
+       name="email" 
+       type="text" 
+       placeholder="enter email..." />
+       <br>
+    <input 
+       name="password" 
+       type="password" 
+       placeholder="choose password..." />
+       <br>
+       <!-- TODO ? add eye -->
+    <input 
+       name="confirm_password" 
+       type="password" 
+       placeholder="confirm password..." />
+       <br>
+
+      <!-- to use crsrf token  -->
+      {% csrf_token %}
+
+    <button>CREATE</button><br>
+</form>
+{% endblock %}

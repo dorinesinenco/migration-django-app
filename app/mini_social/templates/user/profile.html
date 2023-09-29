@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+   <h2>USER PROFILE</h2>
+
+   {% if profileUser.id == visitingUser.id %}
+     <div>
+       <a href="/user/profile/edit/{{profileUser.id}}">EDIT</a>
+       <a href="/post/create">+ Post</a>
+     </div>
+   {% endif %}
+
+   <h3>{{profileUser.username}} ({{profileUser.email}}) 
+    <!-- check if the user is in the friends list 
+       if profileUser not in userFriends
+    -->
+   
+    {% if profileUser.id != visitingUser.id and not profileUserIsNotVisitingUserFriend %}
+     <a href="/user/add/friend/{{profileUser.id}}">+ FRIEND</a>
+    {% endif %} 
+  
+   </h3>
+   <img src="{% static profileUser.avatar %}" width="150"/>
+
+   {% if profileUser.id == visitingUser.id %}
+   <h3>Settings</h3>
+    {% comment %} on/off notifications {% endcomment %}
+    <form action="/user/preferences/notifications">
+      <label>
+        <input type="checkbox" name="toggle" {% if show_notifications %}checked{% endif %} value="1" />
+        notifications
+      </label>
+    
+      <button>SAVE</button>
+    </form>
+
+   {% endif %} 
+    <h3>Posts</h3>
+    <!-- 
+      HW6: using a loop list the posts here
+          make sure that each post title is wrapped in <a>
+          when the use clicks on a link---- >   page of the post
+      HW7: create the post page 
+           on the bottom of the page put a comment form  
+      HW8: add urls/views to save the comment      
+           comment model consists:
+              - body
+              - post   (r)
+              - author (r) 
+           after saving the comment, redirect -> to post page
+      HW9:
+           on the post page
+           show all the comments to that post        
+     -->
+   <h3>Friends</h3>
+   <ul>
+    {% for friend in userFriends %}
+     <li>
+        <a href="/user/profile/{{friend.id}}">
+          {{ friend.username }}
+        </a>
+        <a href="/user/remove/friend/{{friend.id}}">
+          X
+        </a>
+     </li>
+    {% endfor %} 
+   </ul>
+
+{% endblock %}

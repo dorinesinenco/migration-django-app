@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+        <h2>ADD POST</h2>
+        <form action="/post/save" method="POST">
+            <input name="title" type="text" placeholder="title"/><br>
+            <!-- HW4: put another type of field here so the user could insert MORE text -->
+            <input name="body" type="text" placeholder="body"/><br>
+            <button>SAVE</button><br>
+            {% csrf_token %}
+        </form>
+{% endblock %}
